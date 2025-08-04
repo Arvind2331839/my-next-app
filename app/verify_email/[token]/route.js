@@ -1,3 +1,5 @@
+"use client";
+
 import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 import { connectDB } from "@/lib/databaseConnection";
