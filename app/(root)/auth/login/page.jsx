@@ -1,11 +1,11 @@
 "use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import Logo from "@/public/assets/images/logo-black.png";
 import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoEye } from "react-icons/io5";
 import {
@@ -17,30 +17,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zSchema } from "@/lib/zodSchema";
 import ButtonLoading from "@/components/Application/ButtonLoading";
-import { z } from "zod";
-// import { Link } from "lucide-react";
 import Link from "next/link";
 import { WEBSITE_REGISTER } from "@/route/websiteRoute";
-
-// If you want to be explicit about the picked schema type:
-const formSchema = zSchema
-  .pick({
-    email: true,
-    password: true,
-  })
-  .extend({
-    password: z.string().min("3", "password firld is required"),
-  });
-
-// type FormValues = React.infer<typeof formSchema>;
+import { loginSchema } from "@/lib/zodSchema";
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [isTypePassword, setIsTypePassword] = useState(true);
+
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -51,7 +38,7 @@ const LoginPage = () => {
 
   const handleLoginSubmit = async (values) => {
     console.log("clicked");
-    console.log(values);
+    console.log('Loged in successfully',values);
     // perform login...
   };
 
@@ -61,10 +48,9 @@ const LoginPage = () => {
         <div className="flex justify-center">
           <Image
             className="max-w-[150px]"
-            src={Logo.src}
+            src={Logo}
             alt="Logo"
-            width={Logo.width}
-            height={Logo.height}
+            priority
           />
         </div>
         <div className="mt-4 mb-4">
@@ -78,6 +64,7 @@ const LoginPage = () => {
           <form
             onSubmit={handleSubmit(handleLoginSubmit)}
             className="space-y-6"
+            noValidate
           >
             <FormField
               control={form.control}
@@ -113,9 +100,10 @@ const LoginPage = () => {
                     />
                   </FormControl>
                   <button
-                    className="absolute top-1/2 mt-1 right-2 cursor-pointer"
+                    className="absolute top-1/2 transform -translate-y-1/2 right-2 cursor-pointer"
                     type="button"
-                    onClick={() => setIsTypePassword(!isTypePassword)}
+                    onClick={() => setIsTypePassword((prev) => !prev)}
+                    aria-label={isTypePassword ? "Show password" : "Hide password"}
                   >
                     {isTypePassword ? <IoMdEyeOff /> : <IoEye />}
                   </button>
@@ -143,13 +131,13 @@ const LoginPage = () => {
                   Create Account
                 </Link>
               </div>
-               <div className="flex justify-center items-center text-sm mt-2 gap-1">
-                <p>Forget Password ?</p>
+              <div className="flex justify-center items-center text-sm mt-2 gap-1">
+                <p>Forget Password?</p>
                 <Link
                   href="/register"
-                  className="cursor-pointer  text-blue-600 hover:underline"
+                  className="cursor-pointer text-blue-600 hover:underline"
                 >
-                 Reset
+                  Reset
                 </Link>
               </div>
             </div>

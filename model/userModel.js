@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { boolean } from "zod";
 import bcrypt from "bcryptjs"; // note change
 
 export const userSchema = new mongoose.Schema(
