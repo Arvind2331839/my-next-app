@@ -21,17 +21,16 @@ import Link from "next/link";
 import ButtonLoading from "@/components/Application/ButtonLoading";
 import { WEBSITE_LOGIN } from "@/route/websiteRoute";
 import axios from "axios";
+import showTost from "@/lib/showTost";
+import { baseUserSchema } from "@/lib/zodSchema";
 
-// Define register schema with name, email, password, confirmPassword
-const registerSchema = z
-  .object({
-    name: z.string().min(1, "Name is required"),
-    email: z.string().email("Invalid email address"),
-    password: z
-      .string()
-      .min(6, "Password must be at least 6 characters")
-      .regex(/\S/, "Password cannot be just whitespace"),
-    confirmPassword: z.string(),
+// 2️⃣ Register Schema (uses pick + refine for password match)
+export const registerSchema = baseUserSchema
+  .pick({
+    name: true,
+    email: true,
+    password: true,
+    confirmPassword: true,
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
@@ -70,9 +69,11 @@ const Register = () => {
         throw new Error(registerResponce.message);
       }
       form.reset();
-      alert(registerResponce.message);
+      // alert(registerResponce.message);
+       showTost('success',registerResponce.message)
     } catch (error) {
-      alert(error.message);
+      // alert(error.message);
+      showTost('error',error.message)
       console.error("Registration error:", error);
     } finally {
       setLoading(false);

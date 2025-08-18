@@ -2,9 +2,9 @@ import { emailVerificationLink } from "@/email/emailVerificationLink";
 import { connectDB } from "@/lib/databaseConnection";
 import { response } from "@/lib/helperFunctions";
 import { sendMail } from "@/lib/sendMail";
+import { registerSchema } from "@/lib/zodSchema";
 import UserModel from "@/model/userModel";
 import { SignJWT } from "jose";
-import { registerSchema } from "@/lib/zodSchema";
 
 const SECRET_KEY = process.env.SECRET_KEY || "";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
@@ -54,7 +54,7 @@ export async function POST(request) {
     await sendMail(
       "Email verification request from developer goswami",
       email,
-      emailVerificationLink(`${BASE_URL}/verify_email/${token}`)
+      emailVerificationLink(`${BASE_URL}/api/auth/mail/${token}`)
     );
 
     return response(

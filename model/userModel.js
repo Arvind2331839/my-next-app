@@ -23,8 +23,12 @@ export const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      select: false,
+      // select: false,
     },
+    
+    otp: { type: Number },     ///////
+    otpExpiry: { type: Date }, ///////
+
     avatar: {
       url: {
         type: String,

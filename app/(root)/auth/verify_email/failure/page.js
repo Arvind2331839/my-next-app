@@ -1,8 +1,9 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function FailurePage() {
+function FailurePageContent() {
   const params = useSearchParams();
   const reason = params.get("reason") || "unknown";
 
@@ -53,5 +54,13 @@ export default function FailurePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function FailurePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <FailurePageContent />
+    </Suspense>
   );
 }

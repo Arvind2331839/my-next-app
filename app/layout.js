@@ -1,11 +1,13 @@
+import { ToastContainer } from "react-toastify";
 import "./globals.css";
-import {Assistant} from 'next/font/google'
+import { Assistant } from "next/font/google";
+import GlobalProvider from "@/components/Application/GlobalProvider";
 
-const assistantFont= Assistant({
-  weight:['400','500','600','700','800'],
-  subsets:['latin'],
-  display:'swap'
-})
+const assistantFont = Assistant({
+  weight: ["400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -15,10 +17,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${assistantFont.className} antialiased`}
-      >
-        {children}
+      <body className={`${assistantFont.className} antialiased`}>
+        <GlobalProvider>
+          <ToastContainer />
+          {children}
+        </GlobalProvider>
       </body>
     </html>
   );

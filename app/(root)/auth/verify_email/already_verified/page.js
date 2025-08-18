@@ -1,8 +1,8 @@
 "use client";
 
-export default function SuccessPage() {
+export default function AlreadyVerifiedPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center px-4">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-green-600 opacity-20 blur-xl"></div>
         <div className="relative z-10">
@@ -19,10 +19,10 @@ export default function SuccessPage() {
             </svg>
           </div>
           <h1 className="text-2xl font-bold text-green-800 mb-2">
-            Email Verified Successfully ✅
+            Already Verified
           </h1>
           <p className="text-gray-700 mb-6">
-            Your email has been successfully verified. You can now log in.
+            Your email was already verified earlier. You can proceed to login.
           </p>
           <a
             href="/login"
