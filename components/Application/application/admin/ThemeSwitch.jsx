@@ -1,6 +1,15 @@
 import React from "react";
 import { MdDarkMode } from "react-icons/md";
 import { CiLight } from "react-icons/ci";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button";
 
 const ThemeSwitch = () => {
   return (

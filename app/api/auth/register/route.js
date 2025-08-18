@@ -2,12 +2,18 @@ import { emailVerificationLink } from "@/email/emailVerificationLink";
 import { connectDB } from "@/lib/databaseConnection";
 import { response } from "@/lib/helperFunctions";
 import { sendMail } from "@/lib/sendMail";
-import { registerSchema } from "@/lib/zodSchema";
+import { baseUserSchema } from "@/lib/zodSchema";
 import UserModel from "@/model/userModel";
 import { SignJWT } from "jose";
 
 const SECRET_KEY = process.env.SECRET_KEY || "";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
+
+export const registerSchema = baseUserSchema.pick({
+  name: true,
+  email: true,
+  password: true,
+});
 
 export async function POST(request) {
   try {
@@ -16,7 +22,7 @@ export async function POST(request) {
     const payload = await request.json();
 
     const validated = registerSchema.safeParse(payload);
-    console.log("validated",validated)
+    console.log("validated", validated);
     if (!validated.success) {
       return response(
         false,
@@ -60,8 +66,9 @@ export async function POST(request) {
     return response(
       true,
       200,
-      "Registration success, please verify your email address",{
-        user:savedUser
+      "Registration success, please verify your email address",
+      {
+        user: savedUser,
       }
     );
   } catch (error) {
