@@ -22,20 +22,9 @@ import ButtonLoading from "@/components/Application/ButtonLoading";
 import { WEBSITE_LOGIN } from "@/route/websiteRoute";
 import axios from "axios";
 import showTost from "@/lib/showTost";
-import { baseUserSchema } from "@/lib/zodSchema";
+import { registerSchema } from "@/lib/zodSchema";
 
-// 2️⃣ Register Schema (uses pick + refine for password match)
-export const registerSchema = baseUserSchema
-  .pick({
-    name: true,
-    email: true,
-    password: true,
-    confirmPassword: true,
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "Passwords do not match",
-  });
+
 
 const Register = () => {
   const [loading, setLoading] = useState(false);

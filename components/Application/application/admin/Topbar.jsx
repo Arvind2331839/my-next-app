@@ -11,9 +11,9 @@ const Topbar = () => {
       <div className=" flex mr-5">
        <ThemeSwitch />
         <UserDropdown />
-        {/* <Button>
+        <Button>
           <RiMenu4Fill />
-        </Button> */}
+        </Button>
       </div>
     </div>
   );
